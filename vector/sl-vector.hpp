@@ -5,7 +5,7 @@
 namespace stll
 {
 
-template <typename T> bool min(const T & a, const T & b)
+template <typename T> T min(const T & a, const T & b)
 {
     if (a < b)
     {
@@ -151,25 +151,30 @@ void vector<T>::assign(typename vector<T>::iterator b, typename vector<T>::itera
 {
     ensure_capacity(e - b);
     
-    auto it = b;
-    auto j = this->begin();
+    size_t n_other = e - b;
     size_t n = min<size_t>(e - b, this->size());
+    std::cout << "Assigning: " << n << " " << n_other << " " << this->size() << std::endl;
     size_t i = 0;
-    while (i < n)
+
+
+    auto t_it = this->begin();
+    auto o_it = b;
+    auto t_end = this->begin() + n;
+    while (t_it < t_end)
     {
-        *j = *it;
-        j ++;
-        it ++;
+        *t_it = *o_it;
+        t_it++;
+        o_it++;
+    }
+    i += n;
+
+    while (i < n_other)
+    {
+        this->unsafe_emplace_back(b[i]);
         i ++;
     }
 
-    while (it != e)
-    {
-        this->unsafe_emplace_back(*it);
-        it ++;
-    }
-
-    while (this->size() != e - b)
+    while (i < this->size())
     {
         this->pop_back();
     }
