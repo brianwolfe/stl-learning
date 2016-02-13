@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+
+# vim temp files
+*.swp
+*.DS_Store
+*.dblite
