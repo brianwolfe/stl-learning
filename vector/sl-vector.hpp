@@ -168,7 +168,6 @@ void vector<T>::assign(typename vector<T>::iterator b, typename vector<T>::itera
     
     size_t n_other = e - b;
     size_t n = min<size_t>(e - b, this->size());
-    std::cout << "Assigning: " << n << " " << n_other << " " << this->size() << std::endl;
     size_t i = 0;
 
 
