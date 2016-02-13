@@ -141,7 +141,22 @@ vector<T> & vector<T>::operator=(const vector<T> & other)
 {
     if (this == &other) return *this;
 
-    this->assign(other.begin(), other.end());
+    this->ensure_capacity(other.size());
+    size_t n = min<size_t>(other.m_size, this->m_size);
+    for (size_t i = 0; i < n; i++)
+    {
+        this->m_data[i] = other.m_data[i];
+    }
+
+    for (size_t i = n; i < other.m_size; i++)
+    {
+        this->unsafe_emplace_back(other.m_data[i]);
+    }
+
+    while(this->m_size > other.m_size)
+    {
+        this->pop_back();
+    }
 
     return *this;
 }
@@ -174,7 +189,7 @@ void vector<T>::assign(typename vector<T>::iterator b, typename vector<T>::itera
         i ++;
     }
 
-    while (i < this->size())
+    while (i < this->m_size)
     {
         this->pop_back();
     }
