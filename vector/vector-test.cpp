@@ -121,6 +121,33 @@ template<typename T, size_t N> ResultList test_vector_int()
     }
     resultlist.emplace_back("Multiply time", get_time());
 
+    // Copy to a new vector
+    init_start_time();
+    T vec2(vec);
+    resultlist.emplace_back("Copy constructor time", get_time());
+
+    // Move vector
+    init_start_time();
+    T vec3(std::move(vec));
+    resultlist.emplace_back("Move constructor time", get_time());
+
+    // Copy to a new vector
+    init_start_time();
+    vec3 = vec2;
+    resultlist.emplace_back("Copy assignment time", get_time());
+
+    // Move vector
+    init_start_time();
+    vec3 = std::move(vec2);
+    resultlist.emplace_back("Move assignment time", get_time());
+    
+    std::cout << vec.size() << std::endl;
+    std::cout << vec2.size() << std::endl;
+    std::cout << vec3.size() << std::endl;
+    vec2 = vec3;
+    vec = vec2;
+    std::cout << vec2.size() << std::endl;
+    std::cout << vec.size() << std::endl;
     return resultlist;
 }
 
@@ -135,6 +162,7 @@ int main()
     std::cout << tvi;
 
     ResultList tsm = test_vector_int<stll::vector<int>, MAX_VECTOR_SIZE>();
+    std::cout << "\n\n";
     std::cout << "Mini-SL vector results" << std::endl;
 
     std::cout << tsm;
