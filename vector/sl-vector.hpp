@@ -162,7 +162,7 @@ vector<T> & vector<T>::operator=(const vector<T> & other)
 }
 
 template<typename T>
-void vector<T>::assign(typename vector<T>::iterator b, typename vector<T>::iterator e)
+void vector<T>::assign(vector<T>::iterator b, vector<T>::iterator e)
 {
     ensure_capacity(e - b);
     
@@ -177,15 +177,16 @@ void vector<T>::assign(typename vector<T>::iterator b, typename vector<T>::itera
     while (t_it < t_end)
     {
         *t_it = *o_it;
-        t_it++;
-        o_it++;
+        ++t_it;
+        ++o_it;
     }
     i += n;
 
     while (i < n_other)
     {
-        this->unsafe_emplace_back(b[i]);
-        i ++;
+        this->unsafe_emplace_back(o_it);
+        ++ i;
+        ++ o_it;
     }
 
     while (i < this->m_size)
