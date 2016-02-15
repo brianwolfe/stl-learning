@@ -17,7 +17,7 @@
 // This is my test file
 #include "sl-sort.hpp"
 
-constexpr size_t MAX_VECTOR_SIZE = 50000000;
+constexpr size_t MAX_VECTOR_SIZE = 5000000;
 static int random_numbers[MAX_VECTOR_SIZE];
 static struct timeval start_time;
 
@@ -84,16 +84,19 @@ ResultList test_sort()
 {
     ResultList resultlist;
 
-    std::vector<int> vec1(random_numbers, random_numbers + N);
-    std::vector<int> vec2(random_numbers, random_numbers + N);
+    for (size_t i = 0; i < 3; i++)
+    {
+        std::vector<int> vec1(random_numbers, random_numbers + N);
+        std::vector<int> vec2(random_numbers, random_numbers + N);
 
-    init_start_time();
-    sll::heap_sort(vec1.begin(), vec1.end());
-    resultlist.emplace_back("Heapify time", get_time());
+        init_start_time();
+        std::sort(vec2.begin(), vec2.end());
+        resultlist.emplace_back("QSort time", get_time());
 
-    init_start_time();
-    std::sort(vec2.begin(), vec2.end());
-    resultlist.emplace_back("QSort time", get_time());
+        init_start_time();
+        sll::heap_sort(vec1.begin(), vec1.end());
+        resultlist.emplace_back("Heapify time", get_time());
+    }
 
     return resultlist;
 }

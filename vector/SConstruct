@@ -4,7 +4,7 @@ env.Append(CPPFLAGS=['-Wall', '-Werror', '-O3', '--std=c++11'])
 p = env.Program('vector-test', 'vector-test.cpp')
 p = env.Program('sort-test', 'sort-test.cpp')
 
-vector_test = env.Command('vtest.out', ['vector-test'], './$SOURCE | tee $TARGET')
+# vector_test = env.Command('vtest.out', ['vector-test'], './$SOURCE | tee $TARGET')
 sort_test = env.Command('stest.out', ['sort-test'], './$SOURCE | tee $TARGET')
 
 AlwaysBuild(sort_test)
